@@ -1,20 +1,20 @@
 import React from 'react';
 import ButtonDefault from './button-default';
 import ButtonAqua from './button-aqua';
-import { Experiment, Variant, Default } from '../../containers/feature-toggle';
+import { FeatureToggle, Variant, Default } from '../../containers/feature-toggle';
 
 function Button({
   ...props
 }) {
   return (
-    <Experiment name="counter-button">
+    <FeatureToggle name="counter-button">
       <Default>
           <ButtonDefault {...props}/>
       </Default>
       <Variant name="button-aqua">
           <ButtonAqua {...props}/>
       </Variant>
-  </Experiment>);
+  </FeatureToggle>);
 }
 
 Button.propTypes = {

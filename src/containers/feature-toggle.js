@@ -39,5 +39,5 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export const Experiment = connect(mapStateToProps)(Selector);
+export const FeatureToggle = connect(mapStateToProps)(Selector);
 
