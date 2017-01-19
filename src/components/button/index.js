@@ -1,24 +1,20 @@
 import React from 'react';
-import classNames from 'classnames';
+import ButtonDefault from './button-default';
+import ButtonAqua from './button-aqua';
+import { Experiment, Variant, Default } from '../../containers/feature-toggle';
 
 function Button({
-  children,
-  className,
-  type = 'button',
-  onClick,
-  ...props,
+  ...props
 }) {
-  const buttonClasses = classNames('btn', 'btn-primary', className);
-
   return (
-    <button
-      type={ type }
-      className={ buttonClasses }
-      onClick={ onClick }
-      {...props}>
-      { children }
-    </button>
-  );
+    <Experiment name="counter-button">
+      <Default>
+          <ButtonDefault {...props}/>
+      </Default>
+      <Variant name="button-aqua">
+          <ButtonAqua {...props}/>
+      </Variant>
+  </Experiment>);
 }
 
 Button.propTypes = {
