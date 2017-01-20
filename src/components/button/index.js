@@ -14,7 +14,7 @@ function Button({
       <Variant name="button-aqua">
           <ButtonAqua {...props}/>
       </Variant>
-  </FeatureToggle>);
+    </FeatureToggle>);
 }
 
 Button.propTypes = {

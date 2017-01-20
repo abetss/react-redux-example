@@ -14,15 +14,15 @@ export function Default(props) {
 }
 
 export function Selector(props) {
-  const { variant, name, children } = props;
+  const { variant, children } = props;
   let chosenOne;
   let defualtOne;
   React.Children.forEach(children, child => {
     if (child.type === Default) {
-      defualtOne = React.cloneElement(child, { experiment: 'default' });
+      defualtOne = React.cloneElement(child);
     }
     if (child.type === Variant && child.props.name === variant) {
-      chosenOne = React.cloneElement(child, { experiment: name });
+      chosenOne = React.cloneElement(child);
     }
   });
   return chosenOne || defualtOne;
