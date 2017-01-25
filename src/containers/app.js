@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { loginUser, logoutUser } from '../actions/session';
+import { initAtOptimizely } from '../actions/feature-toggle';
 
 import { Link } from 'react-router';
 import Button from '../components/button';
@@ -22,14 +23,17 @@ function mapDispatchToProps(dispatch) {
   return {
     login: () => dispatch(loginUser()),
     logout: () => dispatch(logoutUser()),
+    initOptimizely: () => dispatch(initAtOptimizely()),
   };
 }
 
-function App({ children, session, login, logout }) {
+function App({ children, session, login, logout, initOptimizely }) {
   const token = session.get('token', false);
   const isLoggedIn = token && token !== null && typeof token !== 'undefined';
   const firstName = session.getIn(['user', 'first'], '');
   const lastName = session.getIn(['user', 'last'], '');
+
+  initOptimizely();
 
   return (
     <div>
@@ -70,6 +74,7 @@ App.propTypes = {
   session: React.PropTypes.object,
   login: React.PropTypes.func,
   logout: React.PropTypes.func,
+  initOptimizely: React.PropTypes.func,
 };
 
 export default connect(
