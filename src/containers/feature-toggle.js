@@ -16,16 +16,19 @@ export function Default(props) {
 export function Selector(props) {
   const { variant, children } = props;
   let chosenOne;
-  let defualtOne;
+  let defaultOne;
   React.Children.forEach(children, child => {
     if (child.type === Default) {
-      defualtOne = React.cloneElement(child);
+      defaultOne = React.cloneElement(child);
     }
-    if (child.type === Variant && child.props.name === variant) {
+
+    // set as variant if the name matched or variant was true (to support boolean based
+    // feature flags)
+    if (child.type === Variant && (child.props.name === variant || variant === true)) {
       chosenOne = React.cloneElement(child);
     }
   });
-  return chosenOne || defualtOne;
+  return chosenOne || defaultOne;
 }
 
 Selector.propTypes = {

@@ -1,6 +1,6 @@
 export const featureToggleConfig = {
   'counter-button': {
-    variant: 'button-aqua',
+    variant: 'default',
     description: 'the button-aque is default button with aqua color',
     cleanUpHowTo: `
         in the src/components/button 

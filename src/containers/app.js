@@ -10,6 +10,31 @@ import LoginModal from '../components/login/login-modal';
 import Logo from '../components/logo';
 import Navigator from '../components/navigator';
 import NavigatorItem from '../components/navigator-item';
+import { initLunchDarkly } from '../actions/feature-toggle';
+
+// import LDClient from 'ldclient-js';
+//
+// const user = {
+//   'key': 'aa0ceb',
+//   'firstName': 'Ernestina',
+//   'lastName': 'Evans',
+//   'email': 'ernestina@example.com',
+//   'custom': {
+//     'groups': ['Google', 'Microsoft'],
+//   },
+// };
+//
+// const dispatchVariant = (dispatchCallback, ldClient) => {
+//   const shouldShow = ldClient.variation('counter-button', false);
+//   dispatchCallback({'counter-button': shouldShow});
+// };
+//
+// const initLunchDarkly = (dispatchCallback) => {
+//   const clientID = '588913f45d265b0ac0617d16';
+//   const ldclient = LDClient.initialize(clientID, user);
+//   ldclient.on('ready', () => dispatchVariant(dispatchCallback, ldclient));
+//   ldclient.on('change', () => dispatchVariant(dispatchCallback, ldclient));
+// };
 
 function mapStateToProps(state) {
   return {
@@ -22,14 +47,17 @@ function mapDispatchToProps(dispatch) {
   return {
     login: () => dispatch(loginUser()),
     logout: () => dispatch(logoutUser()),
+    initiateLunchDarkly: (payload) => dispatch(initLunchDarkly(payload)),
   };
 }
 
-function App({ children, session, login, logout }) {
+function App({ children, session, login, logout, initiateLunchDarkly }) {
   const token = session.get('token', false);
   const isLoggedIn = token && token !== null && typeof token !== 'undefined';
   const firstName = session.getIn(['user', 'first'], '');
   const lastName = session.getIn(['user', 'last'], '');
+
+  initiateLunchDarkly();
 
   return (
     <div>
@@ -70,6 +98,7 @@ App.propTypes = {
   session: React.PropTypes.object,
   login: React.PropTypes.func,
   logout: React.PropTypes.func,
+  initiateLunchDarkly: React.PropTypes.func,
 };
 
 export default connect(
